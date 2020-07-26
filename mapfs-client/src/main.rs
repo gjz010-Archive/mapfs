@@ -482,14 +482,47 @@ impl Filesystem for RemoteFS{
     }
     fn readdir(
         &mut self, 
-        _req: &Request, 
-        _ino: u64, 
-        _fh: u64, 
-        _offset: i64, 
-        reply: ReplyDirectory
+        req: &Request, 
+        ino: u64, 
+        fh: u64, 
+        offset: i64, 
+        mut reply: ReplyDirectory
     ) {
-        // TODO: sliding window.
-        unimplemented!();
+        let client=Arc::clone(&self.client);
+        let f_req=request_f(req);
+        tokio::spawn(async move{
+            let mut client=client.lock().await;
+            let mut offset=offset;
+            let mut buffer_size=4;
+            'readdir:loop{
+                let ret=client.readdir(context::current(), f_req, ino, fh, offset, buffer_size).await.unwrap();
+                match ret{
+                    Ok(data)=>{
+                        if data.len()==0{
+                            reply.ok();
+                            break 'readdir;
+                        }else{
+                            offset+=data.len() as i64;
+                            for item in data{
+                                if reply.add(item.ino, item.offset, item.kind.to_fuse(), OsStr::new(&item.name)){
+                                    // buffer full.
+                                    reply.ok();
+                                    break 'readdir;
+                                }
+                            }
+                            
+                            if buffer_size<128{
+                                buffer_size*=2;
+                            }
+                        }
+                    }
+                    Err(err)=>{
+                        reply.error(err);
+                        break 'readdir;
+                    }
+                }
+            }
+        });
 
     }
     fn releasedir(

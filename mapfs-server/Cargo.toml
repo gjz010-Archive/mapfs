@@ -7,3 +7,11 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+tarpc = { version = "0.21.0", features = ["full"] }
+futures = "*"
+tokio = { version = "0.2.22", features = ["full"] }
+serde = "*"
+tokio-serde = { version = "0.6.1", features = ["bincode"] }
+mapfs-rpc = { path = "../mapfs-rpc" }
+winapi = "*"
+libc = "*"

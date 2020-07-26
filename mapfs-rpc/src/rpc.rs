@@ -34,7 +34,7 @@ pub struct FileAttrRef{
     pub flags: u32,
 }
 
-#[derive(Debug,Serialize,Deserialize)]
+#[derive(Debug,Serialize,Deserialize, Clone, Copy)]
 pub struct FRequest{
     pub unique: u64,
     pub uid: u32,
@@ -93,7 +93,7 @@ pub type FReplyWrite=Result<u32, c_int>;
 #[derive(Debug,Serialize,Deserialize)]
 pub struct FReplyDirectoryData{
     pub ino: u64,
-    pub offset: u64,
+    pub offset: i64,
     pub kind: FileTypeRef,
     pub name: String
 }

@@ -320,6 +320,16 @@ dependencies = [
 [[package]]
 name = "mapfs-server"
 version = "0.1.0"
+dependencies = [
+ "futures",
+ "libc",
+ "mapfs-rpc",
+ "serde",
+ "tarpc",
+ "tokio",
+ "tokio-serde",
+ "winapi 0.2.8",
+]
 
 [[package]]
 name = "memchr"
