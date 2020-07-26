@@ -1,0 +1,14 @@
+[package]
+name = "mapfs-rpc"
+version = "0.1.0"
+authors = ["gjz010 <gjz010944@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["lib"]
+
+[dependencies]
+libc = "*"
+serde = "*"
+tarpc = { version = "0.21.0", features = ["full"] }

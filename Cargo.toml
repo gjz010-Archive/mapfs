@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "mapfs-rpc",
+    "mapfs-client",
+    "mapfs-server"
+]

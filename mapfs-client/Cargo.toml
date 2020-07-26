@@ -1,0 +1,19 @@
+[package]
+name = "mapfs-client"
+version = "0.1.0"
+authors = ["gjz010 <gjz010944@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+libc = "*"
+env_logger = "*"
+time = {version="0.1.43"}
+tarpc = { version = "0.21.0", features = ["full"] }
+futures = "*"
+tokio = { version = "0.2.22", features = ["full"] }
+serde = "*"
+tokio-serde = { version = "0.6.1", features = ["bincode"] }
+fuse = "*"
+mapfs-rpc = { path = "../mapfs-rpc" }

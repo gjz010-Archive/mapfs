@@ -1,0 +1,4 @@
+mapfs-client/target
+mapfs-rpc/target
+mapfs-server/target
+target
